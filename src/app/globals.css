@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design tokens. Each --color-* here becomes a Tailwind class:
+   --color-paper  ->  bg-paper, text-paper, border-paper ...
+   Dark mode just redefines the same variables below, so no
+   component needs "dark:" classes.
+   --------------------------------------------------------------- */
+@theme {
+  --color-paper:   #E6ECF1;  /* cool blue-grey, like a status board */
+  --color-surface: #F5F8FA;
+  --color-ink:     #17283A;  /* deep navy instead of black */
+  --color-muted:   #5B6E80;
+  --color-rule:    #C3CFD9;
+  --color-ok:      #22775A;  /* "done" green */
+  --color-signal:  #C98A00;  /* amber: things still pending */
+
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:   #101B26;
+    --color-surface: #172532;
+    --color-ink:     #DCE5EE;
+    --color-muted:   #8FA2B4;
+    --color-rule:    #2A3B4B;
+    --color-ok:      #4CC497;
+    --color-signal:  #E8B13A;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-sans text-[1.0625rem] leading-normal text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-signal;
+  }
+}
+
+/* A reusable class for text fields, used by the add-check input
+   and the notes box. */
+@utility input {
+  @apply w-full flex-1 rounded-md border border-rule bg-surface px-3 py-2.5 text-ink;
+}

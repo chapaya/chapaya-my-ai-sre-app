@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shift Start</title>
+
+  <!-- One typeface for everything: Atkinson Hyperlegible Next was designed
+       for legibility, which suits a page you skim half-awake at 9am. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <!-- "defer" runs the script after the HTML is parsed, so the elements
+       app.js looks for already exist. -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <p class="date" id="today"></p>
+    <h1 class="headline" id="headline">Good morning.</h1>
+    <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+  </header>
+
+  <main class="layout">
+    <section class="checklist-panel" aria-labelledby="checklist-title">
+      <div class="panel-head">
+        <h2 id="checklist-title">Morning checks</h2>
+        <button type="button" class="text-button" id="reset">Clear all checks</button>
+      </div>
+
+      <!-- app.js fills this list from the CHECKS array. -->
+      <ul class="checklist" id="checklist"></ul>
+
+      <form class="add-check" id="add-check">
+        <label for="new-check" class="visually-hidden">New check</label>
+        <input id="new-check" type="text" placeholder="Add a check for today only" autocomplete="off">
+        <button type="submit">Add</button>
+      </form>
+    </section>
+
+    <aside class="side">
+      <section aria-labelledby="links-title">
+        <h2 id="links-title">Where to look</h2>
+        <!-- app.js fills this from the LINK_GROUPS array. -->
+        <div id="links"></div>
+      </section>
+
+      <section aria-labelledby="notes-title">
+        <h2 id="notes-title">Handover notes</h2>
+        <textarea id="notes" rows="7" placeholder="What should the next person know?"></textarea>
+        <p class="saved" id="saved" aria-live="polite"></p>
+      </section>
+    </aside>
+  </main>
+</body>
+</html>

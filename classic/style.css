@@ -1,0 +1,274 @@
+/* ---------------------------------------------------------------
+   Design tokens: every color lives here, so changing the theme
+   means editing one block. Dark mode just redefines the same names.
+   --------------------------------------------------------------- */
+:root {
+  --paper:   #E6ECF1;  /* cool blue-grey, like a status board */
+  --surface: #F5F8FA;
+  --ink:     #17283A;  /* deep navy instead of black */
+  --muted:   #5B6E80;
+  --rule:    #C3CFD9;
+  --ok:      #22775A;  /* "done" green */
+  --signal:  #C98A00;  /* amber: things still pending */
+
+  --radius: 6px;
+  --font: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:   #101B26;
+    --surface: #172532;
+    --ink:     #DCE5EE;
+    --muted:   #8FA2B4;
+    --rule:    #2A3B4B;
+    --ok:      #4CC497;
+    --signal:  #E8B13A;
+  }
+}
+
+/* --------------------------- Base ----------------------------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ------------------------- Masthead ---------------------------
+   The headline is the one bold thing on the page: it tells you,
+   in words, how much of your morning is left.                    */
+.masthead {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 2rem;
+}
+
+.date {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.headline {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.progress {
+  height: 6px;
+  background: var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--signal);
+  transition: width 300ms ease, background-color 300ms ease;
+}
+
+.progress-bar.complete { background: var(--ok); }
+
+/* -------------------------- Layout ---------------------------- */
+.layout {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+/* ------------------------- Checklist --------------------------
+   Styled like a pre-flight checklist: the task on the left, a
+   dotted leader, and the response word on the right once done.  */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.check label {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.85rem 0.25rem;
+  cursor: pointer;
+}
+
+.check input {
+  /* Native checkbox, recolored. Keeping it native means keyboard
+     and screen readers work for free. */
+  accent-color: var(--ok);
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  transform: translateY(0.15rem);
+}
+
+.check .task { flex: none; max-width: 70%; }
+
+.check .leader {
+  flex: 1;
+  border-bottom: 2px dotted var(--rule);
+  transform: translateY(-0.3rem);
+  min-width: 1rem;
+}
+
+.check .response {
+  flex: none;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.check.done .task { color: var(--muted); }
+.check.done .response { color: var(--ok); }
+
+.check .remove {
+  flex: none;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  padding: 0 0.25rem;
+}
+
+@media (max-width: 480px) {
+  .check .task { max-width: none; flex: 1; }
+  .check .leader { display: none; }
+}
+
+/* ------------------------ Add a check ------------------------- */
+.add-check {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+input[type="text"], textarea {
+  flex: 1;
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.75rem;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+}
+
+.text-button {
+  background: none;
+  color: var(--muted);
+  font-weight: 500;
+  padding: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------- Links ---------------------------- */
+.side { display: grid; gap: 2.5rem; }
+
+.link-group { margin-bottom: 1.25rem; }
+
+.link-group h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.link-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link-group a {
+  display: block;
+  padding: 0.4rem 0;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+.link-group a:hover { color: var(--ok); }
+
+/* A link without a URL yet shows a hint instead of going nowhere. */
+.link-group .missing {
+  display: block;
+  padding: 0.4rem 0;
+  color: var(--muted);
+  border-bottom: 1px dashed var(--rule);
+}
+
+.saved {
+  margin: 0.4rem 0 0;
+  min-height: 1.5em;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar { transition: none; }
+}
