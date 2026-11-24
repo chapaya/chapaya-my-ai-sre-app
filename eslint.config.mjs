@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated: Android project (Capacitor copies the built site into it)
+    // and the prepare-upload.sh staging folder.
+    "android/**",
+    "to_upload/**",
   ]),
 ]);
 
